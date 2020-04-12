@@ -1,0 +1,10 @@
+$color: cyan;
+
+h1 {
+    color: greenyellow;
+    background-color: red;
+    font-size: 50px;
+}
+p {
+    background-color: $color;
+}
