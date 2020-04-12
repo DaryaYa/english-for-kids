@@ -11,25 +11,28 @@ module.exports = {
   devServer: {
     overlay: true,
   },
+  
   module: {
-    rules: [     
+    rules: [
       {
         test: /\.s[ac]ss$/,
         use: ['style-loader',
-        MiniCssExtractPlugin.loader,
-        {loader: 'css-loader',
-          options : { sourceMap: true,
-          modules: true },
-        },
-        {loader: 'sass-loader',
-        options: { sourceMap: true,
-       },
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,             
+            },
+          },
+          {
+            loader: 'sass-loader',
+            options: { sourceMap: true },
           },
         ],
       },
       {
         test: /\.css$/,
-        use: ['style-loader', MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+        use: ['style-loader', MiniCssExtractPlugin.loader, 'css-loader'],
       },
     ],
   },

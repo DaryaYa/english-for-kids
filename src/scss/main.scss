@@ -1,10 +1,147 @@
-$color: cyan;
+
+a {
+    text-decoration:none;
+    color:blueviolet;
+
+}
+ul {
+    list-style-type:none;
+}
 
 h1 {
-    color: greenyellow;
-    background-color: red;
-    font-size: 50px;
+    position: relative;
+    z-index: 2;
+    color: darkred;
+    margin-left: 5px;
 }
-p {
-    background-color: $color;
+
+.header {
+    display: flex;
+    justify-content: space-between;
 }
+
+.header-burger:hover,
+.nav-item:hover {
+    cursor:pointer;
+    color:#114e09;
+    transform: scale(1.1);
+    font-weight: bold;
+}
+
+.header-burger {
+display: block;
+position: relative;
+height: 24px;
+width: 24px;
+        // top: -5px;
+        // left: -20px;
+margin-left: 7%;
+z-index: 5;
+}
+
+.header-burger::before,
+.header-burger::after {
+    content: '';
+    background-color: rgb(41, 4, 4);
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    left: 0;
+}
+
+.header-burger::before {
+    top: 0;
+}
+
+.header-burger::after {
+    bottom: 0;
+}
+
+.header-burger span {
+    position: absolute;
+    background-color: rgb(41, 4, 4);
+    width: 100%;
+    left: 0;
+    height: 2px;
+    top: 11px;
+    }
+
+.burger-transform {    
+    transform: rotate(90deg);
+    transition: 0.5s;
+}
+
+.header-nav {
+    display:flex;
+    position:absolute;
+    font-size: x-large;
+    top:0;
+    left:0;
+    height:100vh;
+    width: 250px;
+    // background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(230,45,253,1) 100%);
+    background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+    box-shadow:0 0 40px rgba(0,0,0,0.5);
+    flex-direction:column;
+    justify-content:center;
+    align-items:baseline;
+    transform-origin: 0 0;
+    transform: translate(-100%);
+    transition: transform 0.6 ease-in-out;
+}
+
+.header-nav li {
+    margin-top: 10px;
+}
+
+//  switch
+
+.switcher {
+    margin-right: 7%;
+}
+
+.hidden {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+
+.center {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
+#switch {
+  background-color: lightseagreen;
+  width: 130px;
+  height: 60px;
+  display: inline-block;
+  border-radius: 200px;
+  cursor: pointer;
+  transition: background-color 0.5s;
+}
+
+#switch::before {
+  content: "";
+  display: inline-block;
+  width: 52px;
+  height: 52px;
+  background-color: white;
+  border-radius: 50%;
+  position: relative;
+  left: 3px;
+  transition: left 0.5s;
+  top: 4px;
+}
+
+#switchcheckbox:checked + label {
+  background-color: lightsalmon;
+}
+
+#switchcheckbox:checked + label::before {
+  left: 75px;
+}
+

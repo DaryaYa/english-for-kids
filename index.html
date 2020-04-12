@@ -3,12 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./src/css/normalize.css">
+   
     <link rel="stylesheet" href="/dist/style.css">
     <title>Document</title>
 </head>
 <body>
-    <h1>Webpack</h1>
-    <p>sranyj webpack vybesil mena naher!!!!</p>
+     <h1>English for Kids</h1>
+    <header class="header">       
+        <div class="header-burger">
+            <span></span>
+        </div>
+        <nav class="header-nav">
+            <ul>
+                <li><a class="nav-item" href="#">Main Page</a></li>
+                <li><a class="nav-item" href="#cards">Action SET A</a></li>
+                <li><a class="nav-item" href="#cards">Action SET B</a></li>
+                <li><a class="nav-item" href="#cards">Action SET C</a></li>
+                <li><a class="nav-item" href="#cards">Adjective</a></li>
+                <li><a class="nav-item" href="#cards">Animals SET A</a></li>
+                <li><a class="nav-item" href="#cards">Animals SET B</a></li>
+                <li><a class="nav-item" href="#cards">Clothes</a></li>
+                <li><a class="nav-item" href="#cards">Emotions</a></li>
+            </ul>    
+        </nav>
+        <div class="nav-bg"></div>
+        <switcher class="switcher">
+            <div class="center">
+                <input id="switchcheckbox" type="checkbox" class="hidden" /><label for="switchcheckbox" id="switch"><span class="switch-label" data-on="Train" data-off="Play"></span></label>
+            </div
+        </switcher>
+
+    </header>
+
+    <container></container>
+
+
     <script src="/dist/bundle.js"></script>
 </body>
 </html>
