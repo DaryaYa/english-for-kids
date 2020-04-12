@@ -147,3 +147,8 @@ h1 {
 #switch-checkbox:checked + label::before {
   left: 75px;
 }
+
+.switch-label {
+  font-size: 30px;
+  margin-left: -50px;
+}
