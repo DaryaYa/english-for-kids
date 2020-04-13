@@ -1,6 +1,6 @@
 body {
   font-family: cursive;
-  background-color: black;
+  background-color: antiquewhite;
 }
 
 a {
@@ -86,13 +86,12 @@ h1 {
   flex-direction: column;
   justify-content: center;
   align-items: baseline;
-  transform-origin: 0 0;
-  transform: translateX(0px);
+  left: -500px;
+  transition: transform 1s;
 }
 
-.header-nav.nav-invisible {
-  transform: translate -100%;
-  transition: all 0.6 ease-in-out;
+.move {
+  transform: translateX(500px);
 }
 
 .header-nav li {

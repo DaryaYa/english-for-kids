@@ -1,6 +1,6 @@
 body {
     font-family: cursive;
-    background-color: black;
+    background-color: antiquewhite;
 }
 
 a {
@@ -80,7 +80,6 @@ z-index: 5;
     position:absolute;
     font-size: x-large;
     top:0;
-    // left:0;
     height:100vh;
     width: 250px;
     // background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(230,45,253,1) 100%);
@@ -89,14 +88,12 @@ z-index: 5;
     flex-direction:column;
     justify-content:center;
     align-items:baseline;
-    transform-origin: 0 0;
-    transform: translateX(0px);
-    // transition: transform 0.6 ease-in-out;
+    left: -500px;
+    // transform: translateX(91%);
+    transition: transform 1s;
 }
-
-.header-nav.nav-invisible {
-    transform: translate (-100%);
-    transition: all 0.6 ease-in-out;
+.move {
+    transform: translateX(500px);
 }
 
 .header-nav li {
