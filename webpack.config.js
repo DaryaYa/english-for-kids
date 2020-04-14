@@ -1,14 +1,26 @@
+const webpack = require('webpack');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const copyWebpackPlugin = require('copy-webpack-plugin');
+const fileLoader = require('file-loader');
+const htmlWebpackPlugin = require('html-webpack-plugin');
+
+const PATHS = {
+  src: path.join(__dirname, './src'),
+  dist: path.join(__dirname, './dist'),
+  assets: path.join(__dirname, './assets'),
+}
 
 module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, './dist'),
+    path: PATHS.dist,
     publicPath: '/dist',
   },
+  devtool: 'cheap-module-eval-source-map',
   devServer: {
+    port: 8081,
     overlay: true,
   },
   
@@ -34,11 +46,30 @@ module.exports = {
         test: /\.css$/,
         use: ['style-loader', MiniCssExtractPlugin.loader, 'css-loader'],
       },
+      {
+        test: /\.(png|jpe?g|gif|svg|mp3)$/,
+        loader: 'file-loader',  
+        options: {
+          name: '[name].[ext]',
+        },
+      },
     ],
   },
   plugins: [
     new MiniCssExtractPlugin({
       filename: 'style.css',
     }),
+    new htmlWebpackPlugin({
+      hash: false,
+      template: 'index.html',
+      filename: './index.html'
+    }),
+    new copyWebpackPlugin([{
+      from: `${PATHS.assets}/img`, to: `${PATHS.dist}/img`,
+      from: `${PATHS.assets}/audio`, to: `${PATHS.dist}/audio`,
+    }]),
+    new webpack.SourceMapDevToolPlugin({
+      filename: '[file].map'
+    })
   ],
 };
