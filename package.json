@@ -7,7 +7,8 @@
     "test": "test",
     "lint": "eslint ./**/*.js",
     "dev": "webpack-dev-server --open --mode development",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "net": "webpack --mode production"
   },
   "repository": {
     "type": "git",
