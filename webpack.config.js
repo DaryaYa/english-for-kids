@@ -7,15 +7,15 @@ const htmlWebpackPlugin = require('html-webpack-plugin');
 
 const PATHS = {
   src: path.join(__dirname, './src'),
-  dist: path.join(__dirname, './dist'),
+  dist: path.join(__dirname, 'dist/'),
   assets: path.join(__dirname, './assets'),
-}
+};
 
 module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'bundle.js',
-    path: PATHS.dist,
+    path: '/dist',
     publicPath: '/dist',
   },
   devtool: 'cheap-module-eval-source-map',
@@ -23,7 +23,7 @@ module.exports = {
     port: 8081,
     overlay: true,
   },
-  
+
   module: {
     rules: [
       {
@@ -33,7 +33,7 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              sourceMap: true,             
+              sourceMap: true,
             },
           },
           {
@@ -48,7 +48,7 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif|svg|mp3)$/,
-        loader: 'file-loader',  
+        loader: 'file-loader',
         options: {
           name: '[name].[ext]',
         },
@@ -62,14 +62,16 @@ module.exports = {
     new htmlWebpackPlugin({
       hash: false,
       template: 'index.html',
-      filename: './index.html'
+      filename: '/dist/index.html',
     }),
-    new copyWebpackPlugin([{
-      from: `${PATHS.assets}/img`, to: `${PATHS.dist}/img`,
-      from: `${PATHS.assets}/audio`, to: `${PATHS.dist}/audio`,
-    }]),
+    // new copyWebpackPlugin([{
+    //   from: `${PATHS.assets}/img`,
+    //   to: '/dist/img',
+    //   from: `${PATHS.assets}/audio`,
+    //   to: '/dist/audio',
+    // }]),
     new webpack.SourceMapDevToolPlugin({
-      filename: '[file].map'
-    })
+      filename: '[file].map',
+    }),
   ],
 };
