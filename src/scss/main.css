@@ -169,3 +169,8 @@ h1 {
 .category > img {
   width: 320px;
 }
+
+p {
+  border: 1px solid red;
+  border-radius: 50%;
+}

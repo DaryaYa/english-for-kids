@@ -3,7 +3,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const copyWebpackPlugin = require('copy-webpack-plugin');
 const fileLoader = require('file-loader');
-const htmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const PATHS = {
   src: path.join(__dirname, './src'),
@@ -59,10 +59,10 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'style.css',
     }),
-    new htmlWebpackPlugin({
+    new HtmlWebpackPlugin({
       hash: false,
       template: 'index.html',
-      filename: '/dist/index.html',
+      filename: 'dist/index.html',
     }),
     // new copyWebpackPlugin([{
     //   from: `${PATHS.assets}/img`,
