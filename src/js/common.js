@@ -5,6 +5,9 @@ const headerNav = document.querySelector('.header-nav');
 const switcher = document.querySelector('.switcher');
 const checkbox = document.getElementById('switch-checkbox');
 const switcherText = document.querySelector('.switch-label');
+const page1 = document.getElementById('container1');
+const page2 = document.getElementById('container2');
+
 
 let switchBar = true; // true = Game, false = Train
 
@@ -36,3 +39,6 @@ switcher.addEventListener('change', () => {
     switchBar = false;
   }
 });
+
+// --------- page1 --------
+

@@ -7,7 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const PATHS = {
   src: path.join(__dirname, './src'),
-  dist: path.join(__dirname, 'dist/'),  
+  dist: path.join(__dirname, 'dist/'),
 };
 
 module.exports = {
@@ -65,10 +65,13 @@ module.exports = {
     }),
     new CopyWebpackPlugin([{
       from: `${PATHS.src}/assets/img`,
-      to: '/img',
-      // from: './src/assets/audio',
-      // to: './dist/audio',
-    }]),
+      to: 'img',
+    },
+    {
+      from: `${PATHS.src}/assets/audio`,
+      to: 'audio',
+    },
+    ]),
     new webpack.SourceMapDevToolPlugin({
       filename: '[file].map',
     }),
