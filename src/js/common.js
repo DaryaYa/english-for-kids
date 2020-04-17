@@ -12,7 +12,7 @@ const page2 = document.getElementById('container2');
 
 
 let switchBar = true; // true = Game, false = Train
-
+console.log(switchBar);
 
 // headerNav.addEventListener('click', (event) => {
 //   if (event.target.classList.contains('nav-item')) {
@@ -25,7 +25,7 @@ switcher.addEventListener('change', () => {
   if (checkbox.checked) {
     headerNav.style.background = 'linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%)';
     document.querySelectorAll('.category-item-img').forEach((el) => {
-      el.style.borderColor = 'lightsalmon';
+      el.style.borderColor = 'darkseagreen';
     });
     console.log(switcherText.dataset.on);
     switcherText.textContent = switcherText.dataset.on;
@@ -37,7 +37,7 @@ switcher.addEventListener('change', () => {
     switcherText.textContent = switcherText.dataset.off;
     switcherText.style.marginLeft = '10px';
     document.querySelectorAll('.category-item-img').forEach((el) => {
-      el.style.borderColor = 'lightseagreen';
+      el.style.borderColor = 'mediumorchid';
     });
     switchBar = false;
   }
@@ -129,3 +129,5 @@ headerNav.addEventListener('click', (event) => {
     }
   }
 });
+
+// --------Train Mode --------
