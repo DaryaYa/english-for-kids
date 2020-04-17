@@ -13,17 +13,12 @@ const page2 = document.getElementById('container2');
 
 let switchBar = true; // true = Game, false = Train
 
-burger.addEventListener('click', () => {
-  burger.classList.toggle('burger-transform');
-  headerNav.classList.toggle('move');
-});
 
-headerNav.addEventListener('click', (event) => {
-  if (event.target.classList.contains('nav-item')) {
-    burger.classList.toggle('burger-transform');
-    headerNav.classList.toggle('move');
-  }
-});
+// headerNav.addEventListener('click', (event) => {
+//   if (event.target.classList.contains('nav-item')) {
+//     newFunction_1();
+//   }
+// });
 
 switcher.addEventListener('change', () => {
   console.log(switchBar);
@@ -48,12 +43,17 @@ switcher.addEventListener('change', () => {
   }
 });
 
+function newFunction1() {
+  burger.classList.toggle('burger-transform');
+  headerNav.classList.toggle('move');
+}
+
 // --------- page1 --------
 // arr  ------ cards.js
 //
 function createCategory(container, arr) {
   const wrapper = document.getElementById(`${container}`);
-
+  wrapper.innerHTML = '';
   if (!arr.length) return;
 
   for (let i = 1; i < arr.length; i += 1) {
@@ -68,27 +68,64 @@ function createCategory(container, arr) {
 }
 createCategory('container1', cards);
 
+function newFunction() {
+  page1.classList.add('hidden');
+  page2.classList.remove('hidden');
+}
+function newFunction3() {
+  page1.classList.remove('hidden');
+  page2.classList.add('hidden');
+}
+
 function createCards(container, arr) {
   const wrapper = document.getElementById(`${container}`);
-  console.log(event.target);
-  let item = event.target.closest('div');
-  console.log(item);
+  wrapper.innerHTML = '';
+  let number = 0;
 
-  // for (let i = 1; i < arr[1].length; i += 1) {
-  //   const elem = document.createElement('div');
-  //   elem.classList.add('category-item');
-  //   elem.classList.add('card');
-  //   elem.data('number', i-1);
-  //   elem.innerHTML = `<img src='${arr[i][0].image}' alt='${arr[i][0].word}' class="category-item-img">
-  //   <p>${arr[0][i - 1]}</p>`;
-    
+  if (event.target.dataset.menu) {
+    number = parseFloat(event.target.dataset.menu);
+  } else {
+    const item = event.target.closest('div');
+    number = parseFloat(item.dataset.menu);
+  }
+
+  const categoryName = document.createElement('p');
+  categoryName.classList.add('category-name');
+  categoryName.textContent = `${arr[0][number - 1]}`;
+
+  for (let i = 0; i < arr[number].length; i += 1) {
+    const elem = document.createElement('div');
+    elem.classList.add('category-item');
+    elem.classList.add('card');
+    elem.dataset.number = `${number} ${i}`;
+    elem.innerHTML = `<img src='${arr[number][i].image}' alt='${arr[number][i].word}' class="category-item-img card-img">
+    <p>${arr[number][i].word}</p>`;
+
+    wrapper.append(elem);
+  }
+  wrapper.prepend(categoryName);
 }
 
 page1.addEventListener('click', (event) => {
   const { target } = event;
   if (target.classList.contains('category-item-img')) {
-    // page1.classList.add('hidden');
-    page2.classList.remove('hidden');
+    newFunction();
     createCards('container2', cards);
+  }
+});
+
+burger.addEventListener('click', newFunction1);
+
+headerNav.addEventListener('click', (event) => {
+  const { target } = event;
+  if (target.classList.contains('nav-item')) {
+    newFunction1();
+    if (target.dataset.menu == 0) {
+      newFunction3();
+      createCategory('container1', cards);
+    } else {
+      newFunction();
+      createCards('container2', cards);
+    }
   }
 });
