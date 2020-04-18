@@ -97,8 +97,9 @@ function createCards(container, arr) {
     const elem = document.createElement('div');
     elem.classList.add('category-item');
     elem.classList.add('card');
-    elem.dataset.number = `${number} ${i}`;
+    elem.dataset.engWord = `${arr[number][i].word}`;
     elem.innerHTML = `<img src='${arr[number][i].image}' alt='${arr[number][i].word}' class="category-item-img card-img">
+    <button data-id-word="${arr[number][i].word}">TURN</button>
     <p>${arr[number][i].word}</p>`;
 
     wrapper.append(elem);
@@ -113,6 +114,9 @@ page1.addEventListener('click', (event) => {
     createCards('container2', cards);
   }
 });
+
+// const btnCollection = document.querySelectorAll('button');
+
 
 burger.addEventListener('click', newFunction1);
 
@@ -130,4 +134,21 @@ headerNav.addEventListener('click', (event) => {
   }
 });
 
-// --------Train Mode --------
+document.addEventListener('click', (eve) => {
+  if (eve.target.tagName === 'BUTTON') {
+    const pattern = eve.target.dataset.idWord;
+    const { translation } = cards.flat().find((ele) => ele.word == pattern);
+    const { audioSrc } = cards.flat().find((ele) => ele.word == pattern);
+    // console.log(translation, audioSrc);
+    const sound = new Audio(audioSrc);
+    sound.play();
+
+    eve.target.nextElementSibling.textContent = translation;
+    setTimeout(() => {
+      eve.target.nextElementSibling.textContent = pattern;
+    }, 2000);
+  }
+});
+
+
+// --------Game Mode --------

@@ -106,6 +106,7 @@ h1 {
   position: absolute;
   top: -9999px;
   left: -9999px;
+  visibility: hidden;
 }
 
 .center {
@@ -187,13 +188,26 @@ h1 {
   border-radius: 50%;
 }
 
-.category-item img:hover {
+.card button {
+  position: relative;
+  bottom: 30px;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card:hover img {
   box-shadow: rgba(0, 0, 0, 0.603) 15px 15px 15px;
   transform: scale(1.05);
   transition: all 1s;
   cursor: pointer;
 }
 
-.hidden {
-  visibility: hidden;
+.card p {
+  position: relative;
+  font-weight: bold;
+  font-size: 25px;
+  color: darkslategrey;
+  bottom: 40px;
 }
