@@ -139,6 +139,7 @@ document.addEventListener('click', (eve) => {
   const pattern = target.dataset.idWord;
   const { translation, audioSrc } = cards.flat().find((ele) => ele.word == pattern);
   const sound = new Audio(audioSrc);
+  console.log(translation, audioSrc);
   if (target.classList.contains('card-img')) {
     sound.play();
   }
@@ -150,7 +151,6 @@ document.addEventListener('click', (eve) => {
     }, 2000);
   }
 });
-
 
 
 // --------Game Mode --------
