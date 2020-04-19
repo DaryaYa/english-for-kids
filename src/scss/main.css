@@ -189,6 +189,14 @@ h1 {
   border-radius: 50%;
 }
 
+.category-item p {
+  position: relative;
+  font-weight: bold;
+  font-size: 25px;
+  color: #800a4f;
+  bottom: 20px;
+}
+
 .card button {
   position: relative;
   bottom: 30px;
