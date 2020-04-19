@@ -5,4 +5,4 @@ import './js/cards.js';
 // import css from './css/main.css';
 import './css/normalize.css';
 import './scss/main.scss';
-
+import './assets/img/b1.png';

@@ -27,10 +27,10 @@ export const cards = [
       audioSrc: 'src/assets/audio/draw.mp3',
     },
     {
-      word: 'fish',
-      translation: 'ловить рыбу',
-      image: 'src/assets/img/fish.jpg',
-      audioSrc: 'src/assets/audio/fish.mp3',
+      word: 'build',
+      translation: 'строить',
+      image: 'src/assets/img/build.jpg',
+      audioSrc: 'src/assets/audio/build.mp3',
     },
     {
       word: 'fly',
