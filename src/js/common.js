@@ -98,7 +98,7 @@ function createCards(container, arr) {
     elem.classList.add('category-item');
     elem.classList.add('card');
     elem.dataset.engWord = `${arr[number][i].word}`;
-    elem.innerHTML = `<img src='${arr[number][i].image}' alt='${arr[number][i].word}' class="category-item-img card-img">
+    elem.innerHTML = `<img src='${arr[number][i].image}' alt='${arr[number][i].word}' class="category-item-img card-img" data-id-word="${arr[number][i].word}">
     <button data-id-word="${arr[number][i].word}">TURN</button>
     <p>${arr[number][i].word}</p>`;
 
@@ -135,20 +135,22 @@ headerNav.addEventListener('click', (event) => {
 });
 
 document.addEventListener('click', (eve) => {
-  if (eve.target.tagName === 'BUTTON') {
-    const pattern = eve.target.dataset.idWord;
-    const { translation } = cards.flat().find((ele) => ele.word == pattern);
-    const { audioSrc } = cards.flat().find((ele) => ele.word == pattern);
-    // console.log(translation, audioSrc);
-    const sound = new Audio(audioSrc);
+  const { target } = event;
+  const pattern = target.dataset.idWord;
+  const { translation, audioSrc } = cards.flat().find((ele) => ele.word == pattern);
+  const sound = new Audio(audioSrc);
+  if (target.classList.contains('card-img')) {
     sound.play();
-
-    eve.target.nextElementSibling.textContent = translation;
+  }
+  
+  if (target.tagName === 'BUTTON') {
+    target.nextElementSibling.textContent = translation;
     setTimeout(() => {
       eve.target.nextElementSibling.textContent = pattern;
     }, 2000);
   }
 });
+
 
 
 // --------Game Mode --------

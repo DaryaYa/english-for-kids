@@ -65,11 +65,11 @@ module.exports = {
     }),
     new CopyWebpackPlugin([{
       from: `${PATHS.src}/assets/img`,
-      to: 'img',
+      to: 'src/assets/img',
     },
     {
       from: `${PATHS.src}/assets/audio`,
-      to: 'audio',
+      to: 'src/assets/audio',
     },
     ]),
     new webpack.SourceMapDevToolPlugin({

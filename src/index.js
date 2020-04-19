@@ -6,3 +6,4 @@ import './js/category.js';
 // import css from './css/main.css';
 import './css/normalize.css';
 import './scss/main.scss';
+

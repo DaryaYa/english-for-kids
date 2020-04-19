@@ -88,6 +88,7 @@ h1 {
   align-items: baseline;
   left: -500px;
   transition: transform 1s;
+  z-index: 3;
 }
 
 .move {
@@ -210,4 +211,21 @@ h1 {
   font-size: 25px;
   color: darkslategrey;
   bottom: 40px;
+}
+
+@media all and (max-width: 650px) {
+  .container {
+    margin-top: 70px;
+  }
+  .category-name {
+    margin-top: 80px;
+  }
+  .category-item img {
+    width: 280px;
+    height: 230px;
+  }
+  .card {
+    margin: 0;
+    height: 280px;
+  }
 }
