@@ -1,4 +1,4 @@
-// import { category } from './category';
+
 import { cards } from './cards';
 
 const burger = document.querySelector('.header-burger');
