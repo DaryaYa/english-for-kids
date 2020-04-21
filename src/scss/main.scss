@@ -229,6 +229,15 @@ h1 {
     bottom: 40px;
 }
 
+.start-btn {
+    width: 150px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgb(44,185,198);
+    outline: none;
+    box-shadow: 5px 5px 10px grey;
+}
+
 @media all and (max-width: 650px) {
     .container {
         margin-top: 70px;
