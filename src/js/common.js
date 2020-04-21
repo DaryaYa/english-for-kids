@@ -199,7 +199,10 @@ function starsCount() {
   let stars = 0;
   let crosses = 0;
   const sound = new Audio(newSounds[newSounds.length - 1]);
+  const wrong = new Audio('src/assets/audio/Wrong_Answer.mp3');
+  const right = new Audio('src/assets/audio/Hurray.mp3');
   const pattern = /[a-z]{1,}.mp3/i;
+
   const soundName = newSounds[newSounds.length - 1].match(pattern)[0].slice(0, -4);
   console.log(soundName);
   setTimeout(() => {
@@ -212,10 +215,14 @@ function starsCount() {
       console.log(target.getAttribute('alt'));
       if (target.getAttribute('alt') === soundName) {
         stars += 1;
+        right.play();
         newSounds.pop();
       } else {
         crosses += 1;
-        sound.play();
+        wrong.play();
+        setTimeout(() => {
+          sound.play();
+        }, 1000);
       }
     }
     console.log('stars: ', stars, 'X: ', crosses);
@@ -238,7 +245,6 @@ function starsCount() {
   //     }
   //   });
   // }
-  
 }
 
 switcher.addEventListener('change', () => {
