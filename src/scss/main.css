@@ -197,23 +197,23 @@ h1 {
   bottom: 20px;
 }
 
-.card button {
+.card-card button {
   position: relative;
   bottom: 30px;
 }
 
-.card:hover {
+.card-card:hover {
   transform: scale(1.05);
 }
 
-.card:hover img {
+.card-card:hover img {
   box-shadow: rgba(0, 0, 0, 0.603) 15px 15px 15px;
   transform: scale(1.05);
   transition: all 1s;
   cursor: pointer;
 }
 
-.card p {
+.card-card p {
   position: relative;
   font-weight: bold;
   font-size: 25px;

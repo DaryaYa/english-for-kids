@@ -1,3 +1,4 @@
+/* eslint-disable no-inner-declarations */
 /* eslint-disable no-loop-func */
 
 import { cards } from './cards';
@@ -75,7 +76,7 @@ function createCards(container, arr) {
 
   for (let i = 0; i < arr[number].length; i += 1) {
     const elem = document.createElement('div');
-    elem.classList.add('category-item', 'card');
+    elem.classList.add('category-item', 'card-card');
     elem.dataset.engWord = `${arr[number][i].word}`;
     elem.innerHTML = `<img src='${arr[number][i].image}' alt='${arr[number][i].word}' class="category-item-img card-img" data-id-word="${arr[number][i].word}">
     <button class="card-btn" data-id-word="${arr[number][i].word}">TURN</button>
@@ -153,11 +154,12 @@ const backgroundPlay = () => {
 };
 
 // --------Game Mode --------
-const soundArr = [];
+let soundArr = [];
 
 const createPlayCards = (container, arr) => {
   const wrapper = document.getElementById(`${container}`);
-  const number = arr[0].indexOf(wrapper.children[0].textContent);
+
+  const number = (arr[0].indexOf(wrapper.children[0].textContent) || arr[0].dataset.menu);
   const categoryName = document.createElement('p');
   categoryName.classList.add('category-name');
   categoryName.textContent = `${arr[0][number]}`;
@@ -167,7 +169,7 @@ const createPlayCards = (container, arr) => {
     const elem = document.createElement('div');
     elem.classList.add('category-item', 'card');
     // elem.dataset.engWord = `${arr[number + 1][i].word}`;
-    elem.innerHTML = `<img src='${arr[number + 1][i].image}' alt='${arr[number + 1][i].word}' class="category-item-img">`;
+    elem.innerHTML = `<img src='${arr[number + 1][i].image}' alt='${arr[number + 1][i].word}' class="category-item-img pic">`;
     soundArr.push(arr[number + 1][i].audioSrc);
     wrapper.append(elem);
   }
@@ -193,32 +195,41 @@ const onGame = () => {
   createStartBtn();
 };
 
+const box = document.createElement('div');
+page2.before(box);
+box.innerHTML = '';
+
 function starsCount() {
   const newSounds = shuffle(soundArr);
   console.log(newSounds);
   let stars = 0;
   let crosses = 0;
-  const sound = new Audio(newSounds[newSounds.length - 1]);
   const wrong = new Audio('src/assets/audio/Wrong_Answer.mp3');
   const right = new Audio('src/assets/audio/Hurray.mp3');
   const pattern = /[a-z]{1,}.mp3/i;
-
+  const sound = new Audio(newSounds[newSounds.length - 1]);
   const soundName = newSounds[newSounds.length - 1].match(pattern)[0].slice(0, -4);
   console.log(soundName);
   setTimeout(() => {
     sound.play();
   }, 1000);
 
-  document.addEventListener('click', (e) => {
+  function count(e) {
     const { target } = e;
-    if (target.tagName === 'IMG') {
+    if (target.classList.contains('pic')) {
       console.log(target.getAttribute('alt'));
       if (target.getAttribute('alt') === soundName) {
         stars += 1;
+        const starImg = document.createElement('img');
+        starImg.setAttribute('src', 'src/assets/img/star1.png');
+        box.append(starImg);
         right.play();
-        newSounds.pop();
+        newSounds.slice(0, -1);
       } else {
         crosses += 1;
+        const crossImg = document.createElement('img');
+        crossImg.setAttribute('src', 'src/assets/img/xx.png');
+        box.append(crossImg);
         wrong.play();
         setTimeout(() => {
           sound.play();
@@ -226,32 +237,19 @@ function starsCount() {
       }
     }
     console.log('stars: ', stars, 'X: ', crosses);
-  });
-
-  //
-
-  // for (let i = 0; i < newSounds.length - 1; i += 1) {
-  //
-  //   document.addEventListener('click', (event) => {
-  //     const { target } = event;
-  //     if (target.classList.contains('card-img')) {
-
-  //       console.log(target.getAttribute('alt'));
-  //       console.log(newSounds[i].match(pattern)[0].slice(0, -4))
-  //       // let pattern1 = pattern.slice(0, -4);
-  //       if (target.getAttribute('alt') === newSounds[i] {
-  //         stars += 1;
-  //       }
-  //     }
-  //   });
-  // }
+  }
+  document.addEventListener('click', count);
+  soundArr = [];
 }
+
 
 switcher.addEventListener('change', () => {
   if (checkbox.checked) {
     newFunction3();
     createCategory('container1', cards);
     backgroundTrain();
+    box.innerHTML = '';
+    document.querySelector('.start-btn').removeEventListener('click', starsCount);
   } else if (!checkbox.checked) {
     onGame();
     document.querySelector('.start-btn').addEventListener('click', starsCount);
