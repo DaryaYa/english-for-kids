@@ -85,6 +85,7 @@ function createCards(container, arr) {
     wrapper.append(elem);
   }
   wrapper.prepend(categoryName);
+  localStorage.setItem('categoryNumber', number);
 }
 
 page1.addEventListener('click', (event) => {
@@ -196,16 +197,22 @@ const onGame = () => {
 };
 
 const box = document.createElement('div');
+box.classList.add('starBox');
 page2.before(box);
 box.innerHTML = '';
+const sounds = {
+  wrong: new Audio('src/assets/audio/Wrong_Answer.mp3'),
+  right: new Audio('src/assets/audio/Hurray.mp3'),
+};
+let params = {};
 
 function starsCount() {
   const newSounds = shuffle(soundArr);
   console.log(newSounds);
-  let stars = 0;
-  let crosses = 0;
-  const wrong = new Audio('src/assets/audio/Wrong_Answer.mp3');
-  const right = new Audio('src/assets/audio/Hurray.mp3');
+  const stars = 0;
+  const crosses = 0;
+  // const wrong = new Audio('src/assets/audio/Wrong_Answer.mp3');
+  // const right = new Audio('src/assets/audio/Hurray.mp3');
   const pattern = /[a-z]{1,}.mp3/i;
   const sound = new Audio(newSounds[newSounds.length - 1]);
   const soundName = newSounds[newSounds.length - 1].match(pattern)[0].slice(0, -4);
@@ -213,34 +220,50 @@ function starsCount() {
   setTimeout(() => {
     sound.play();
   }, 1000);
-
-  function count(e) {
-    const { target } = e;
-    if (target.classList.contains('pic')) {
-      console.log(target.getAttribute('alt'));
-      if (target.getAttribute('alt') === soundName) {
-        stars += 1;
-        const starImg = document.createElement('img');
-        starImg.setAttribute('src', 'src/assets/img/star1.png');
-        box.append(starImg);
-        right.play();
-        newSounds.slice(0, -1);
-      } else {
-        crosses += 1;
-        const crossImg = document.createElement('img');
-        crossImg.setAttribute('src', 'src/assets/img/xx.png');
-        box.append(crossImg);
-        wrong.play();
-        setTimeout(() => {
-          sound.play();
-        }, 1000);
-      }
-    }
-    console.log('stars: ', stars, 'X: ', crosses);
-  }
-  document.addEventListener('click', count);
-  soundArr = [];
+  params = {
+    stars,
+    crosses,
+    soundName: newSounds[newSounds.length - 1].match(pattern)[0].slice(0, -4),
+    newSounds,
+    sound,
+  };
+  return params;
 }
+function count(e) {
+  const { target } = e;
+  if (target.classList.contains('pic')) {
+    console.log(target.getAttribute('alt'), params.soundName);
+    if (target.getAttribute('alt') === params.soundName && params.newSounds.length) {
+      params.stars += 1;
+      const starImg = document.createElement('img');
+      starImg.setAttribute('src', 'src/assets/img/star1.png');
+      box.append(starImg);
+      sounds.right.play();
+      params.newSounds.slice(0, -1);
+      setTimeout(() => {
+        starsCount();
+      }, 3000);
+      
+    } else if (target.getAttribute('alt') !== params.soundName && params.newSounds.length) {
+      params.crosses += 1;
+      const crossImg = document.createElement('img');
+      crossImg.setAttribute('src', 'src/assets/img/xx.png');
+      box.append(crossImg);
+      sounds.wrong.play();
+      setTimeout(() => {
+        params.sound.play();
+      }, 1000);
+    } else if (params.newSounds.length === 0) {
+      newFunction3();
+      createCategory('container1', cards);
+      backgroundTrain();
+      box.innerHTML = '';
+    }
+  }
+  console.log('stars: ', params.stars, 'X: ', params.crosses);
+}
+
+soundArr = [];
 
 
 switcher.addEventListener('change', () => {
@@ -249,10 +272,11 @@ switcher.addEventListener('change', () => {
     createCategory('container1', cards);
     backgroundTrain();
     box.innerHTML = '';
-    document.querySelector('.start-btn').removeEventListener('click', starsCount);
+    // document.querySelector('.start-btn').removeEventListener('click', starsCount);
   } else if (!checkbox.checked) {
     onGame();
     document.querySelector('.start-btn').addEventListener('click', starsCount);
+    document.addEventListener('click', count);
     backgroundPlay();
   }
 });

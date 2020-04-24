@@ -230,6 +230,10 @@ h1 {
   box-shadow: 5px 5px 10px grey;
 }
 
+.starBox {
+  margin-left: 10px;
+}
+
 @media all and (max-width: 650px) {
   .container {
     margin-top: 70px;
