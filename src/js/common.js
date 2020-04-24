@@ -186,7 +186,7 @@ function createStartBtn() {
 }
 
 function shuffle(array) {
-  const arr = array.sort(() => Math.random() - 0.5);
+  let arr = array.sort(() => Math.random() - 0.5);
   return arr;
 }
 
@@ -204,10 +204,14 @@ const sounds = {
   wrong: new Audio('src/assets/audio/Wrong_Answer.mp3'),
   right: new Audio('src/assets/audio/Hurray.mp3'),
 };
+
 let params = {};
+let newSounds = soundArr;
+
+console.log(newSounds);
 
 function starsCount() {
-  const newSounds = shuffle(soundArr);
+  shuffle(newSounds);
   console.log(newSounds);
   const stars = 0;
   const crosses = 0;
@@ -224,7 +228,6 @@ function starsCount() {
     stars,
     crosses,
     soundName: newSounds[newSounds.length - 1].match(pattern)[0].slice(0, -4),
-    newSounds,
     sound,
   };
   return params;
@@ -233,18 +236,17 @@ function count(e) {
   const { target } = e;
   if (target.classList.contains('pic')) {
     console.log(target.getAttribute('alt'), params.soundName);
-    if (target.getAttribute('alt') === params.soundName && params.newSounds.length) {
+    if (target.getAttribute('alt') === params.soundName && newSounds.length) {
       params.stars += 1;
       const starImg = document.createElement('img');
       starImg.setAttribute('src', 'src/assets/img/star1.png');
       box.append(starImg);
       sounds.right.play();
-      params.newSounds.slice(0, -1);
+      newSounds.slice(0, -1);
       setTimeout(() => {
         starsCount();
       }, 3000);
-      
-    } else if (target.getAttribute('alt') !== params.soundName && params.newSounds.length) {
+    } else if (target.getAttribute('alt') !== params.soundName && newSounds.length) {
       params.crosses += 1;
       const crossImg = document.createElement('img');
       crossImg.setAttribute('src', 'src/assets/img/xx.png');
@@ -253,7 +255,7 @@ function count(e) {
       setTimeout(() => {
         params.sound.play();
       }, 1000);
-    } else if (params.newSounds.length === 0) {
+    } else if (newSounds.length === 0) {
       newFunction3();
       createCategory('container1', cards);
       backgroundTrain();
@@ -261,9 +263,8 @@ function count(e) {
     }
   }
   console.log('stars: ', params.stars, 'X: ', params.crosses);
+  soundArr = [];
 }
-
-soundArr = [];
 
 
 switcher.addEventListener('change', () => {
