@@ -86,6 +86,8 @@ function createCards(container, arr) {
   }
   wrapper.prepend(categoryName);
   localStorage.setItem('categoryNumber', number);
+  document.querySelectorAll('.nav-item').forEach((el) => el.classList.remove('pink'));
+  [...document.querySelectorAll('.nav-item')][localStorage.getItem('categoryNumber')].classList.add('pink');
 }
 
 page1.addEventListener('click', (event) => {
@@ -103,6 +105,8 @@ burger.addEventListener('click', newFunction1);
 headerNav.addEventListener('click', (event) => {
   const { target } = event;
   if (target.classList.contains('nav-item')) {
+    document.querySelectorAll('.nav-item').forEach((el) => el.classList.remove('pink'));
+    target.classList.add('pink');
     newFunction1();
     if (target.dataset.menu === '0') {
       newFunction3();
@@ -157,7 +161,7 @@ const backgroundPlay = () => {
 // --------Game Mode --------
 let soundArr = [];
 
-const createPlayCards = (container, arr) => {
+function createPlayCards(container, arr) {
   const wrapper = document.getElementById(`${container}`);
 
   const number = (arr[0].indexOf(wrapper.children[0].textContent) || arr[0].dataset.menu);
@@ -175,7 +179,7 @@ const createPlayCards = (container, arr) => {
     wrapper.append(elem);
   }
   return soundArr;
-};
+}
 console.log(soundArr);
 
 function createStartBtn() {
@@ -186,17 +190,23 @@ function createStartBtn() {
 }
 
 function shuffle(array) {
-  let arr = array.sort(() => Math.random() - 0.5);
+  const arr = array.sort(() => Math.random() - 0.5);
   return arr;
 }
 
 const onGame = () => {
+  // soundArr = [];
   createPlayCards('container2', cards);
   // const newSounds = shuffle(soundArr);
   createStartBtn();
 };
 
 const box = document.createElement('div');
+const starBox = [];
+const triesNumber = document.createElement('p');
+const tries = 8;
+// triesNumber.innerText = `Your number of tries ${tries - starBox.length}`;
+page2.before(triesNumber);
 box.classList.add('starBox');
 page2.before(box);
 box.innerHTML = '';
@@ -205,18 +215,21 @@ const sounds = {
   right: new Audio('src/assets/audio/Hurray.mp3'),
 };
 
+
 let params = {};
-let newSounds = soundArr;
+let newSounds = [];
 
 console.log(newSounds);
 
 function starsCount() {
-  shuffle(newSounds);
   console.log(newSounds);
+  triesNumber.innerText = `Your number of tries ${tries - starBox.length}`;
+
+  newSounds = cards[localStorage.getItem('categoryNumber')].map((el) => el.audioSrc);
+  shuffle(newSounds);
   const stars = 0;
   const crosses = 0;
-  // const wrong = new Audio('src/assets/audio/Wrong_Answer.mp3');
-  // const right = new Audio('src/assets/audio/Hurray.mp3');
+
   const pattern = /[a-z]{1,}.mp3/i;
   const sound = new Audio(newSounds[newSounds.length - 1]);
   const soundName = newSounds[newSounds.length - 1].match(pattern)[0].slice(0, -4);
@@ -233,6 +246,7 @@ function starsCount() {
   return params;
 }
 function count(e) {
+  console.log(params);
   const { target } = e;
   if (target.classList.contains('pic')) {
     console.log(target.getAttribute('alt'), params.soundName);
@@ -241,25 +255,29 @@ function count(e) {
       const starImg = document.createElement('img');
       starImg.setAttribute('src', 'src/assets/img/star1.png');
       box.append(starImg);
+      starBox.push('+');
       sounds.right.play();
-      newSounds.slice(0, -1);
+      // newSounds.slice(0, -1);
       setTimeout(() => {
         starsCount();
       }, 3000);
-    } else if (target.getAttribute('alt') !== params.soundName && newSounds.length) {
+    } if (target.getAttribute('alt') !== params.soundName && newSounds.length) {
       params.crosses += 1;
       const crossImg = document.createElement('img');
       crossImg.setAttribute('src', 'src/assets/img/xx.png');
       box.append(crossImg);
+      starBox.push('-');
       sounds.wrong.play();
       setTimeout(() => {
         params.sound.play();
       }, 1000);
-    } else if (newSounds.length === 0) {
+    } if (starBox.length === tries) {
       newFunction3();
       createCategory('container1', cards);
       backgroundTrain();
       box.innerHTML = '';
+      triesNumber.innerText = '';
+      checkbox.checked = true;
     }
   }
   console.log('stars: ', params.stars, 'X: ', params.crosses);
