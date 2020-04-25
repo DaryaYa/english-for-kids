@@ -204,7 +204,7 @@ const onGame = () => {
 const box = document.createElement('div');
 const starBox = [];
 const triesNumber = document.createElement('p');
-const tries = 8;
+let tries = 8;
 // triesNumber.innerText = `Your number of tries ${tries - starBox.length}`;
 page2.before(triesNumber);
 box.classList.add('starBox');
@@ -223,8 +223,8 @@ console.log(newSounds);
 
 function starsCount() {
   console.log(newSounds);
-  triesNumber.innerText = `Your number of tries ${tries - starBox.length}`;
 
+  triesNumber.innerText = `Your number of tries ${tries - starBox.length}`;
   newSounds = cards[localStorage.getItem('categoryNumber')].map((el) => el.audioSrc);
   shuffle(newSounds);
   const stars = 0;
@@ -250,7 +250,7 @@ function count(e) {
   const { target } = e;
   if (target.classList.contains('pic')) {
     console.log(target.getAttribute('alt'), params.soundName);
-    if (target.getAttribute('alt') === params.soundName && newSounds.length) {
+    if (target.getAttribute('alt') === params.soundName && starBox.length !== (tries + 1)) {
       params.stars += 1;
       const starImg = document.createElement('img');
       starImg.setAttribute('src', 'src/assets/img/star1.png');
@@ -261,7 +261,7 @@ function count(e) {
       setTimeout(() => {
         starsCount();
       }, 3000);
-    } if (target.getAttribute('alt') !== params.soundName && newSounds.length) {
+    } if (target.getAttribute('alt') !== params.soundName && starBox.length !== (tries + 1)) {
       params.crosses += 1;
       const crossImg = document.createElement('img');
       crossImg.setAttribute('src', 'src/assets/img/xx.png');
@@ -271,19 +271,51 @@ function count(e) {
       setTimeout(() => {
         params.sound.play();
       }, 1000);
-    } if (starBox.length === tries) {
-      newFunction3();
-      createCategory('container1', cards);
-      backgroundTrain();
-      box.innerHTML = '';
-      triesNumber.innerText = '';
-      checkbox.checked = true;
-    }
-  }
-  console.log('stars: ', params.stars, 'X: ', params.crosses);
-  soundArr = [];
-}
+    } if (starBox.length === (tries + 1)) {
+      console.log(starBox);
+      console.log(starBox.filter((el) => el === '-').length);
+      if (starBox.filter((el) => el === '-').length <= 2) {
+        const success = document.createElement('div');
+        success.classList.add('success');
+        const successImg = document.createElement('img');
+        successImg.setAttribute('src', 'src/assets/img/success.jpg');
+        success.append(successImg);
+        page2.append(success);
+        sounds.right.play();
 
+        setTimeout(() => {
+          success.remove();
+          newFunction3();
+          createCategory('container1', cards);
+          backgroundTrain();
+          box.innerHTML = '';
+          triesNumber.innerText = '';
+          checkbox.checked = true;
+        }, 6000);
+      } else if (starBox.filter((el) => el === '-').length > 2) {
+        const success = document.createElement('div');
+        success.classList.add('success');
+        const successImg = document.createElement('img');
+        successImg.setAttribute('src', 'src/assets/img/failure.jpg');
+        success.append(successImg);
+        page2.append(success);
+        sounds.wrong.play();
+
+        setTimeout(() => {
+          success.remove();
+          newFunction3();
+          createCategory('container1', cards);
+          backgroundTrain();
+          box.innerHTML = '';
+          triesNumber.innerText = '';
+          checkbox.checked = true;
+        }, 6000);
+      }
+    }
+    console.log('stars: ', params.stars, 'X: ', params.crosses);
+    soundArr = [];
+  }
+}
 
 switcher.addEventListener('change', () => {
   if (checkbox.checked) {
@@ -291,10 +323,14 @@ switcher.addEventListener('change', () => {
     createCategory('container1', cards);
     backgroundTrain();
     box.innerHTML = '';
+    triesNumber.innerText = '';
+
     // document.querySelector('.start-btn').removeEventListener('click', starsCount);
   } else if (!checkbox.checked) {
     onGame();
+    tries = 8;
     document.querySelector('.start-btn').addEventListener('click', starsCount);
+
     document.addEventListener('click', count);
     backgroundPlay();
   }
