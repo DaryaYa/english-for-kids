@@ -1,0 +1,46 @@
+{
+  "name": "english-for-kids",
+  "version": "1.0.0",
+  "description": "English for Kids",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "lint": "eslint ./**/*.js",
+    "dev": "webpack-dev-server --open --mode development",
+    "build": "webpack --mode production",
+    "net": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DaryaYa/english-for-kids.git"
+  },
+  "keywords": [
+    "start"
+  ],
+  "author": "Me",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DaryaYa/english-for-kids/issues"
+  },
+  "homepage": "https://github.com/DaryaYa/english-for-kids#readme",
+  "devDependencies": {
+    "copy-webpack-plugin": "^5.1.1",
+    "css-loader": "^3.5.2",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.1",
+    "file-loader": "^6.0.0",
+    "html-webpack-plugin": "^4.2.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "sass-loader": "^8.0.2",
+    "style-loader": "^1.1.3",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "node-sass": "^4.13.1",
+    "path": "^0.12.7",
+    "resolve-url-loader": "^3.1.1",
+    "webpack-dev-server": "^3.10.3"
+  }
+}
